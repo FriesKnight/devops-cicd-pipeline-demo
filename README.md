@@ -9,7 +9,7 @@ A production-ready web application featuring an interactive Wordle game, deploye
 
 ## 🌐 Live Demo
 
-**Play the game:** [[https://[friesknight.github.io/devops-cicd-pipeline-demo](https://friesknight.github.io/wordle-automated-deployment)/](https://friesknight.github.io/devops-cicd-pipeline-demo/)](https://friesknight.github.io/wordle-automated-deployment)
+**Play the game:** https://friesknight.github.io/wordle-automated-deployment
 
 ## 📋 Table of Contents
 
