@@ -2,13 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <title>Wordle Game - By Jonathan Juining</title>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      /* Prevent double-tap zoom on mobile */
+      @media (hover: none) and (pointer: coarse) {
+        * {
+          touch-action: manipulation;
+        }
+
+        button {
+          -webkit-appearance: none;
+          appearance: none;
+        }
       }
 
       body {
@@ -311,21 +329,147 @@
         text-decoration: underline;
       }
 
-      @media (max-width: 500px) {
-        .tile {
-          width: 52px;
-          height: 52px;
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+          background-attachment: fixed;
+        }
+
+        .container {
+          max-width: 100%;
+          padding: 20px;
+          border-radius: 15px;
+        }
+
+        h1 {
+          font-size: 2em;
+          margin-bottom: 8px;
+        }
+
+        .subtitle {
+          font-size: 0.95em;
+        }
+
+        .stats {
+          margin-bottom: 15px;
+          padding: 12px;
+          gap: 10px;
+        }
+
+        .stat-value {
           font-size: 1.5em;
         }
 
-        .key {
-          min-width: 30px;
+        .stat-label {
+          font-size: 0.8em;
+        }
+
+        .game-board {
+          margin-bottom: 20px;
+          gap: 4px;
+        }
+
+        .row {
+          gap: 4px;
+        }
+
+        .tile {
+          width: 50px;
           height: 50px;
-          font-size: 0.9em;
+          font-size: 1.4em;
+          border: 1px solid #d3d6da;
+        }
+
+        .keyboard {
+          gap: 6px;
+        }
+
+        .keyboard-row {
+          gap: 5px;
+        }
+
+        .key {
+          min-width: 32px;
+          height: 48px;
+          font-size: 0.85em;
+          padding: 0 6px;
+          border-radius: 3px;
         }
 
         .key.large {
-          min-width: 50px;
+          min-width: 48px;
+          font-size: 0.8em;
+        }
+
+        .message {
+          top: 80px;
+          font-size: 0.9em;
+          padding: 12px 20px;
+        }
+
+        .modal-content {
+          padding: 25px;
+          margin: 20px;
+          max-width: 90%;
+        }
+
+        .modal h2 {
+          font-size: 1.6em;
+          margin-bottom: 15px;
+        }
+
+        .modal p {
+          font-size: 1em;
+          margin-bottom: 15px;
+        }
+
+        .modal button {
+          padding: 12px 30px;
+          font-size: 1em;
+        }
+
+        .footer {
+          margin-top: 20px;
+          padding: 15px;
+          font-size: 0.85em;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .tile {
+          width: 44px;
+          height: 44px;
+          font-size: 1.2em;
+          border: 1px solid #d3d6da;
+        }
+
+        .key {
+          min-width: 28px;
+          height: 40px;
+          font-size: 0.75em;
+          padding: 0 4px;
+        }
+
+        .key.large {
+          min-width: 40px;
+          font-size: 0.7em;
+        }
+
+        h1 {
+          font-size: 1.7em;
+        }
+
+        .container {
+          padding: 15px;
+        }
+
+        .stats {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .stat {
+          padding: 8px;
         }
       }
     </style>
