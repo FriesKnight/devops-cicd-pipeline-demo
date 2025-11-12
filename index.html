@@ -8,6 +8,13 @@
     />
     <title>Wordle Game - By Jonathan Juining</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Favicon: Game Controller Emoji -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90'>⭐</text></svg>"
+      type="image/svg+xml"
+    />
   </head>
   <body>
     <button
@@ -15,7 +22,17 @@
       onclick="showReleaseNotes()"
       title="View release notes"
     >
-      📬 What's New
+      <span class="btn-icon">📬</span><span class="btn-text">What's New</span>
+    </button>
+
+    <button
+      class="profile-btn"
+      id="profileBtn"
+      title="Create Profile"
+      data-icon="👤"
+    >
+      <span class="btn-icon">👤</span
+      ><span class="btn-text">Create Profile</span>
     </button>
 
     <div class="container">
@@ -38,6 +55,14 @@
           <div class="stat-label">Streak</div>
         </div>
       </div>
+
+      <button
+        class="leaderboard-btn"
+        onclick="showLeaderboard()"
+        title="View Leaderboard"
+      >
+        🏆 Leaderboard
+      </button>
 
       <div class="game-board" id="gameBoard"></div>
 
@@ -77,6 +102,250 @@
       </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+      <div class="modal-content profile-modal">
+        <button
+          class="modal-close-btn"
+          onclick="closeProfileModal()"
+          title="Close"
+        >
+          ✕
+        </button>
+        <h2>👤 Create Your Profile</h2>
+        <p class="profile-subtitle">
+          Save your stats forever and join the leaderboard!
+        </p>
+
+        <div class="current-stats-box">
+          <h3>Your Current Stats:</h3>
+          <div class="stats-grid">
+            <div>
+              <strong>Games Played:</strong>
+              <span id="profileGamesPlayed">0</span>
+            </div>
+            <div>
+              <strong>Win Rate:</strong> <span id="profileWinRate">0%</span>
+            </div>
+            <div>
+              <strong>Max Streak:</strong> <span id="profileMaxStreak">0</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="profileForm" class="profile-form">
+          <div class="form-group">
+            <label for="displayName">Display Name *</label>
+            <input
+              type="text"
+              id="displayName"
+              placeholder="Enter your name"
+              required
+              maxlength="30"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Choose Your Avatar</label>
+            <div class="avatar-selector">
+              <div
+                class="avatar-option selected"
+                data-avatar="🎮"
+                onclick="selectAvatar(this)"
+              >
+                🎮
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="😎"
+                onclick="selectAvatar(this)"
+              >
+                😎
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="🚀"
+                onclick="selectAvatar(this)"
+              >
+                🚀
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="⚡"
+                onclick="selectAvatar(this)"
+              >
+                ⚡
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="🔥"
+                onclick="selectAvatar(this)"
+              >
+                🔥
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="⭐"
+                onclick="selectAvatar(this)"
+              >
+                ⭐
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="💎"
+                onclick="selectAvatar(this)"
+              >
+                💎
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="🏆"
+                onclick="selectAvatar(this)"
+              >
+                🏆
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="👑"
+                onclick="selectAvatar(this)"
+              >
+                👑
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="🎯"
+                onclick="selectAvatar(this)"
+              >
+                🎯
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="🎲"
+                onclick="selectAvatar(this)"
+              >
+                🎲
+              </div>
+              <div
+                class="avatar-option"
+                data-avatar="🎨"
+                onclick="selectAvatar(this)"
+              >
+                🎨
+              </div>
+            </div>
+            <input type="hidden" id="avatarSelection" value="🎮" />
+            <small>Or use a custom image URL:</small>
+            <input
+              type="url"
+              id="avatarUrl"
+              placeholder="https://example.com/avatar.jpg"
+              class="avatar-url-input"
+            />
+          </div>
+
+          <button type="submit" class="create-profile-btn">
+            ✨ Create Profile & Save Stats
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Profile View Modal -->
+    <div class="modal" id="profileViewModal">
+      <div class="modal-content profile-view-modal">
+        <button
+          class="modal-close-btn"
+          onclick="closeProfileViewModal()"
+          title="Close"
+        >
+          ✕
+        </button>
+        <h2>👤 Your Profile</h2>
+
+        <div class="profile-view-content">
+          <div class="profile-header">
+            <div class="profile-avatar-large" id="viewAvatar">🎮</div>
+            <div class="profile-info">
+              <h3 id="viewDisplayName">Player Name</h3>
+              <p id="viewEmail">email@example.com</p>
+            </div>
+          </div>
+
+          <div class="profile-stats-section">
+            <h3>📊 Your Stats</h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-value" id="viewGamesPlayed">0</div>
+                <div class="stat-label">Games Played</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="viewGamesWon">0</div>
+                <div class="stat-label">Games Won</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="viewWinRate">0%</div>
+                <div class="stat-label">Win Rate</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="viewMaxStreak">0</div>
+                <div class="stat-label">Max Streak</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="viewCurrentStreak">0</div>
+                <div class="stat-label">Current Streak</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="delete-profile-btn" onclick="confirmDeleteProfile()">
+            🗑️ Delete Profile
+          </button>
+          <p class="delete-warning">
+            This will return you to anonymous mode. Your stats will remain but
+            you'll need to create a new profile.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div class="modal" id="leaderboardModal">
+      <div class="modal-content leaderboard-modal">
+        <button
+          class="modal-close-btn"
+          onclick="closeLeaderboardModal()"
+          title="Close"
+        >
+          ✕
+        </button>
+        <h2>🏆 Leaderboard</h2>
+        <div class="leaderboard-tabs">
+          <button
+            class="tab-btn active"
+            onclick="switchLeaderboardTab('streak')"
+          >
+            🔥 Max Streak
+          </button>
+          <button class="tab-btn" onclick="switchLeaderboardTab('winrate')">
+            📊 Win Rate
+          </button>
+        </div>
+        <div id="leaderboardContent" class="leaderboard-content">
+          <div class="loading">Loading leaderboard...</div>
+        </div>
+      </div>
+    </div>
+
     <div class="footer">
       <p>Built by <strong>Jonathan Juining</strong> | Software Engineer</p>
       <p style="margin-top: 10px">
@@ -88,6 +357,15 @@
         </a>
       </p>
     </div>
+
+    <!-- Supabase SDK (Cloud Database - FREE) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase Local Config (loaded first, ignored if not present) -->
+    <script src="supabase-config.local.js" onerror="console.log('📝 No local config found - using placeholders')"></script>
+
+    <!-- Supabase Service (Stats & Leaderboard) -->
+    <script src="supabase-service.js"></script>
 
     <!-- Dictionary Validation Service (API + Caching) -->
     <script src="dictionary-service.js"></script>
